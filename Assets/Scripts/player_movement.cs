@@ -6,14 +6,14 @@ public class player_movement : MonoBehaviour
     [SerializeField] public float jumpForce = 8f;
 
     private Rigidbody2D body;
-    private Animator anim;
+    // private Animator anim;   // commented out animator
 
     public bool grounded;
 
     private void Awake()
     {
         body = GetComponent<Rigidbody2D>();
-        anim = GetComponent<Animator>();
+        // anim = GetComponent<Animator>();   // commented out animator setup
     }
 
     private void Update()
@@ -36,14 +36,14 @@ public class player_movement : MonoBehaviour
             transform.localScale = new Vector3(-4, 4, 1);
         }
 
-        anim.SetBool("run", horizontalInput != 0);
-        anim.SetBool("grounded", grounded);
+        // anim.SetBool("run", horizontalInput != 0);   // commented out animation
+        // anim.SetBool("grounded", grounded);          // commented out animation
     }
 
     private void jump()
     {
         body.linearVelocity = new Vector2(body.linearVelocity.x, jumpForce);
-        anim.SetTrigger("J");
+        // anim.SetTrigger("J");   // commented out animation
         grounded = false;
     }
 
