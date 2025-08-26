@@ -1,22 +1,34 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
-
-public class CheckpointBuff : MonoBehaviour
+using System.Collections;
+using System.Collections.Generic;
+using TMPro;
+public class Checkpoint : MonoBehaviour
 {
-    public GameObject buffUI;          // Parent panel with 2 buttons
-    public Button buff1Button;         // Button 1
-    public Button buff2Button;         // Button 2
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    public GameObject BuffCanvas;
+    public Button buff1;
+    public Button buff2;
+
+    public TextMeshProUGUI resultText;
 
     private bool triggered = false;
 
-    private void Start()
+    void Start()
     {
-        // Hide UI at start
-        buffUI.SetActive(false);
+        BuffCanvas.SetActive(triggered);
+        resultText.gameObject.SetActive(false);
 
-        // Hook up buttons
-        buff1Button.onClick.AddListener(() => OnBuffSelected("Buff 1"));
-        buff2Button.onClick.AddListener(() => OnBuffSelected("Buff 2"));
+        buff1.onClick.AddListener(() => OnBuffSelected/*Method you want*/("Buff1"));
+        buff2.onClick.AddListener(() => OnBuffSelected("Buff2"));
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -25,25 +37,36 @@ public class CheckpointBuff : MonoBehaviour
         {
             triggered = true;
             PauseGame();
-            buffUI.SetActive(true);
+            BuffCanvas.SetActive(triggered);
         }
     }
 
-    private void OnBuffSelected(string buffName)
+    private void OnBuffSelected(string buffer)
     {
-        Debug.Log(buffName + " chosen!"); // Later you can apply effect here
+        triggered = false;
+        BuffCanvas.SetActive(triggered);
+        resultText.text = "Selected: " + buffer;
+        resultText.gameObject.SetActive(true);
+        StartCoroutine(WaitForEndOfFrame(3f));
+    }
 
-        buffUI.SetActive(false);
+    IEnumerator WaitForEndOfFrame(float delay)
+    {
+        
         ResumeGame();
+        yield return new WaitForSecondsRealtime(delay);
+        resultText.gameObject.SetActive(false);
+
+
     }
 
     private void PauseGame()
     {
-        Time.timeScale = 0f; // freeze game
+        Time.timeScale = 0f;
     }
-
     private void ResumeGame()
     {
-        Time.timeScale = 1f; // unfreeze game
+        Time.timeScale = 1f;
+        Destroy(gameObject);
     }
 }
