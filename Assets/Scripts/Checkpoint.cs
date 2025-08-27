@@ -10,13 +10,15 @@ public class Checkpoint : MonoBehaviour
     public GameObject BuffCanvas;
     public Button buff1;
     public Button buff2;
+    public Button cancelButton;
 
     public TextMeshProUGUI resultText;
 
     private bool triggered = false;
 
     private player_movement player;
-
+    private float speed;
+    private float jump;
     private delegate void Effect();
     private List<(string name, string secretName, Effect effect)> effects = new List<(string,string, Effect)>();
 
@@ -31,6 +33,8 @@ public class Checkpoint : MonoBehaviour
         {
             Debug.Log("Player not found");
         }
+        speed = player.speed;
+        jump = player.jumpForce;
         //Effects adding
         effects.Add(("?", "There is a Black Man behind you!!", () => player.speed *= 1.5f));
         effects.Add(("?", "Jump Suit Activated", () => player.jumpForce *= 2f));
@@ -74,8 +78,10 @@ public class Checkpoint : MonoBehaviour
         if (text2 != null) text2.text = effects[e2].name;
         buff1.GetComponentInChildren<TextMeshProUGUI>().text = effects[e1].name;
         buff2.GetComponentInChildren<TextMeshProUGUI>().text = effects[e2].name;
-        
 
+        buff1.onClick.RemoveAllListeners();
+        buff2.onClick.RemoveAllListeners();
+        
 
         buff1.onClick.AddListener(() =>
         {
@@ -87,12 +93,19 @@ public class Checkpoint : MonoBehaviour
             effects[e2].effect();
             OnBuffSelected(effects[e2].secretName);
         });
+        cancelButton.onClick.AddListener(() =>
+        {
+            BuffCanvas.SetActive(false);
+            ResumeGame();
+        });
 
 
     }
 
     private void OnBuffSelected(string buffer)
     {
+        player.speed = speed;
+        player.jumpForce = jump;
         triggered = false;
         BuffCanvas.SetActive(triggered);
         resultText.text = "Selected: " + buffer;
