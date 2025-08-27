@@ -29,11 +29,11 @@ public class player_movement : MonoBehaviour
 
         if (horizontalInput > 0.0f)
         {
-            transform.localScale = new Vector3(4, 4, 1);
+            transform.localScale = new Vector3(1, 1 , 1);
         }
         else if (horizontalInput < 0.0f)
         {
-            transform.localScale = new Vector3(-4, 4, 1);
+            transform.localScale = new Vector3(-1, 1, 1);
         }
 
         // anim.SetBool("run", horizontalInput != 0);   // commented out animation

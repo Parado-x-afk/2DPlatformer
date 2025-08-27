@@ -60,10 +60,12 @@ public class Checkpoint : MonoBehaviour
         if (other.CompareTag("Player") && !triggered)
         {
             triggered = true;
+            player.speed = speed;
+            player.jumpForce = jump;
             PauseGame();
             BuffCanvas.SetActive(triggered);
 
-            AssignRandomEffects();    
+            AssignRandomEffects();
         }
     }
 
@@ -104,8 +106,7 @@ public class Checkpoint : MonoBehaviour
 
     private void OnBuffSelected(string buffer)
     {
-        player.speed = speed;
-        player.jumpForce = jump;
+        
         triggered = false;
         BuffCanvas.SetActive(triggered);
         resultText.text = "Selected: " + buffer;
