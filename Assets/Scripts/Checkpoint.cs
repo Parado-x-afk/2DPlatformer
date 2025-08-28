@@ -111,6 +111,7 @@ public class Checkpoint : MonoBehaviour
         BuffCanvas.SetActive(triggered);
         resultText.text = "Selected: " + buffer;
         resultText.gameObject.SetActive(true);
+        ResumeGame();
         StartCoroutine(WaitForEndOfFrame(3f));
     }
 
@@ -120,8 +121,7 @@ public class Checkpoint : MonoBehaviour
         
         yield return new WaitForSecondsRealtime(delay);
         resultText.gameObject.SetActive(false);
-        ResumeGame();
-
+        Destroy(gameObject);
 
     }
 
@@ -132,6 +132,5 @@ public class Checkpoint : MonoBehaviour
     private void ResumeGame()
     {
         Time.timeScale = 1f;
-        Destroy(gameObject);
     }
 }
