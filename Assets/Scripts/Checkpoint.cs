@@ -36,14 +36,14 @@ public class Checkpoint : MonoBehaviour
         speed = player.speed;
         jump = player.jumpForce;
         //Effects adding
-        effects.Add(("?", "There is a Black Man behind you!!", () => player.speed *= 1.5f));
-        effects.Add(("?", "Jump Suit Activated", () => player.jumpForce *= 2f));
-        effects.Add(("?", "Just saw your crush, well I know the feeling", () => Debug.Log("Heal")));
+        effects.Add(("?", "RED HOT CHILLI PEPPER!!", () => player.speed *= 1.5f));
+        effects.Add(("?", "Funny Mushroom!!", () => player.jumpForce *= 2f));
+        effects.Add(("?", "Apparently healing.", () => Debug.Log("Heal")));
 
         //Debuffs adding
-        effects.Add(("?", "Your Heart is getting heavy", () => player.speed *= 0.25f));
-        effects.Add(("?", "Jump Suit Corrupted", () => player.jumpForce *= 0.5f));
-        effects.Add(("?", "Ok, sadly You got caught by that Black man", () => Debug.Log("Damage")));
+        effects.Add(("?", "POV: You are the antagonist while protagonist is having flashbacks", () => player.speed *= 0.25f));
+        effects.Add(("?", "Funny Mushroom.", () => player.jumpForce *= 0.5f));
+        effects.Add(("?", "THINK FAST CHUCKLENUTS", () => Debug.Log("Damage")));
 
      
     }
